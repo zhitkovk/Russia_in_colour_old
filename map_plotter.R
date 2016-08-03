@@ -1,6 +1,6 @@
 # Function to create a map of Russia with filling of choice
 
-mapPlotter <- function(data, fill_var, title = "", leg_name = "") {
+mapPlotter <- function(data, fill_var, title = "", leg_name = "", pal = "GnBu") {
   # Function plots map of Russia with chosen filling
   #
   # Args:
@@ -12,15 +12,20 @@ mapPlotter <- function(data, fill_var, title = "", leg_name = "") {
   # Returns:
   #  ggplot2 object: map of Russia
   plot <- ggplot(data = data, aes_(x = ~long, y = ~lat, group = ~group, fill = as.name(fill_var))) +
-    geom_polygon(colour = "white", size = 0.3) + 
+    geom_polygon(colour = "gray", size = 0.3) + 
     coord_quickmap() + 
     labs(x = "", 
          y = "",
          title = title) + 
     #scale_fill_gradient(low = "orange", high = "purple") +
-    scale_fill_distiller(name = leg_name, palette = "GnBu", labels = comma) +
+    scale_fill_brewer(name = leg_name,
+                         palette = pal) +
     scale_x_continuous(breaks = NULL) +
     scale_y_continuous(breaks = NULL) + 
-    theme_bw()
+    theme_bw() +
+    theme(
+      legend.key.width = unit(1.3, "line"),
+      legend.key.height = unit(1.3, "line"),
+      legend.key = element_blank())
   return(plot)
 }

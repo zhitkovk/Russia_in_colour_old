@@ -8,6 +8,7 @@ library("devtools")
 library("rusmaps")
 
 # Reading data
+library("dplyr")
 library("openxlsx")
 
 # Plotting
