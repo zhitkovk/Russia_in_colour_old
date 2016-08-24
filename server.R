@@ -7,6 +7,7 @@ source("read_data.R")
 # Function for plotting map
 source("map_plotter.R")
 source("helper.R")
+source("leaflet_helper.R")
 
 # Download fonts
 source("global.R")
@@ -31,11 +32,19 @@ shinyServer(
         cols <- ncol(inFile())
         
         # Implicit facitity for multiple columns with data
-        init_file <- user_data(inFile(), input$reg_select)
-        init_file[, (ncol(init_file) - cols - 1):ncol(init_file)] <- lapply(
-          init_file[,(ncol(init_file) - cols - 1):ncol(init_file)],
-          function(x)
-            numericCutter(as.numeric(x)))
+        if (grepl("[0-9]", inFile()[1, colnames(inFile()) == input$reg_select])) {
+          init_file <- user_data(inFile(), merge_by_var = input$reg_select, merge_by_reg = FALSE)
+          init_file[, (ncol(init_file) - cols - 1):ncol(init_file)] <- lapply(
+            init_file[,(ncol(init_file) - cols - 1):ncol(init_file)],
+            function(x)
+              numericCutter(as.numeric(x), as.numeric(input$pal_q_y)))
+        } else {
+          init_file <- user_data(inFile(), input$reg_select)
+          init_file[, (ncol(init_file) - cols - 1):ncol(init_file)] <- lapply(
+            init_file[,(ncol(init_file) - cols - 1):ncol(init_file)],
+            function(x)
+              numericCutter(as.numeric(x), as.numeric(input$pal_q_y)))
+        }
         init_file
       })
       
@@ -74,6 +83,15 @@ shinyServer(
       
       output$myplot_y <- renderPlot({
         plotInput_y()
+      })
+      
+      output$leaflet_map <- renderLeaflet({
+        leaflet(rds_map) %>%
+          addPolygons(stroke = FALSE, 
+                      smoothFactor = 0.1,
+                      fillOpacity = 0.95, 
+                      popup = pop_popup,
+                      color = ~pop_pal(rds_map@data$n_adm_f_external))
       })
       
       # DOWNLOAD PLOT AS PNG ----

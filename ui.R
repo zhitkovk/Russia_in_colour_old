@@ -1,4 +1,5 @@
 # App interface
+source("libraries.R")
 
 shinyUI(navbarPage("Карта России в цвете beta",
                    theme = shinythemes::shinytheme("united"),
@@ -111,6 +112,15 @@ shinyUI(navbarPage("Карта России в цвете beta",
                                   selectize = TRUE,
                                   selected = "YlGnBu"
                                 ),
+                                selectInput(
+                                  "pal_q_y",
+                                  label = h5("Выберите число градаций цвета"),
+                                  choices = list("2" = 0.5,
+                                                 "4" = 0.25,
+                                                 "5" = 0.2),
+                                  selectize = TRUE,
+                                  selected = 0.2
+                                ),
                                 textInput(
                                   "text_title_y", label = h5("Название вашего графика:"), value = "Регионы России"
                                 ),
@@ -132,6 +142,9 @@ shinyUI(navbarPage("Карта России в цвете beta",
                                 )
                               )
                             ),
+                   tabPanel("Интерактивная карта",
+                     leafletOutput("leaflet_map")
+                   ),
                    tabPanel("О проекте",
                             includeMarkdown("description.md")
                             )

@@ -16,10 +16,11 @@ mapPlotter <- function(data, fill_var, title = "", leg_name = "", pal = "GnBu") 
     coord_quickmap() + 
     labs(x = "", 
          y = "",
-         title = title) + 
+         title = str_wrap(title, 60)) + 
     #scale_fill_gradient(low = "orange", high = "purple") +
     scale_fill_brewer(name = leg_name,
-                         palette = pal) +
+                         palette = pal,
+                      na.value = "darkgray") +
     scale_x_continuous(breaks = NULL) +
     scale_y_continuous(breaks = NULL) + 
     theme_bw() +

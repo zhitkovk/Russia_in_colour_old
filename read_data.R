@@ -5,3 +5,4 @@
 # https://github.com/akondrashov96/rusmaps
 
 ggrmap <- readRDS("data/rmap.RDS")
+rds_map <- readRDS("data/rdsmap.rds")
