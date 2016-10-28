@@ -11,14 +11,17 @@ mapPlotter <- function(data, fill_var, title = "", leg_name = "", pal = "GnBu") 
   #
   # Returns:
   #  ggplot2 object: map of Russia
-  plot <- ggplot(data = data, aes_(x = ~long, y = ~lat, group = ~group, fill = as.name(fill_var))) +
+  plot <- ggplot(data = data, aes_(x = ~long,
+                                   y = ~lat, 
+                                   group = ~group, 
+                                   fill = as.name(fill_var))) +
     geom_polygon(colour = "gray", size = 0.3) + 
     coord_quickmap() + 
     labs(x = "", 
          y = "",
          title = str_wrap(title, 60)) + 
     scale_fill_brewer(name = leg_name,
-                         palette = pal,
+                      palette = pal,
                       na.value = "darkgray") +
     scale_x_continuous(breaks = NULL) +
     scale_y_continuous(breaks = NULL) + 
