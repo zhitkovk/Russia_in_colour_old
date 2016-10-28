@@ -142,9 +142,6 @@ shinyUI(navbarPage("Карта России в цвете beta",
                                 )
                               )
                             ),
-                   tabPanel("Интерактивная карта",
-                     leafletOutput("leaflet_map")
-                   ),
                    tabPanel("О проекте",
                             includeMarkdown("description.md")
                             )

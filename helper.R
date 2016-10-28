@@ -16,7 +16,7 @@ numericCutter <- function(vect, step = 0.2) {
   return(vect)
 }
 
-# Merge with new file
+# Merge basic data with user's file
 user_data <- function(user_data, merge_by_var, merge_by_reg = TRUE) {
   if(is.null(user_data)) {
     data <- ggrmap

@@ -17,7 +17,6 @@ mapPlotter <- function(data, fill_var, title = "", leg_name = "", pal = "GnBu") 
     labs(x = "", 
          y = "",
          title = str_wrap(title, 60)) + 
-    #scale_fill_gradient(low = "orange", high = "purple") +
     scale_fill_brewer(name = leg_name,
                          palette = pal,
                       na.value = "darkgray") +

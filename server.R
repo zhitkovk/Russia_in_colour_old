@@ -7,7 +7,6 @@ source("read_data.R")
 # Function for plotting map
 source("map_plotter.R")
 source("helper.R")
-source("leaflet_helper.R")
 
 # Download fonts
 source("global.R")
@@ -83,15 +82,6 @@ shinyServer(
       
       output$myplot_y <- renderPlot({
         plotInput_y()
-      })
-      
-      output$leaflet_map <- renderLeaflet({
-        leaflet(rds_map) %>%
-          addPolygons(stroke = FALSE, 
-                      smoothFactor = 0.1,
-                      fillOpacity = 0.95, 
-                      popup = pop_popup,
-                      color = ~pop_pal(rds_map@data$n_adm_f_external))
       })
       
       # DOWNLOAD PLOT AS PNG ----
